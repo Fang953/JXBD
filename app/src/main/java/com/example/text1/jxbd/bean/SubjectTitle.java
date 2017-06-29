@@ -4,7 +4,7 @@ package com.example.text1.jxbd.bean;
  * Created by Administrator on 2017/6/29.
  */
 
-public class subjectTitle {
+public class SubjectTitle {
 
     /**
      * subjectTitle : c1
