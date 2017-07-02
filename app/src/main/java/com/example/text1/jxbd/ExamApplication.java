@@ -32,22 +32,48 @@ public class ExamApplication extends Application {
     }
 
     private void initData() {
-                OkHttpUtils<SubjectTitle> utils =new OkHttpUtils<>(instance);
-                String url1="http://101.251.196.90:8080/JztkServer/getQuestions?testType=rand";
-                utils.url(url1)
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpUtils<SubjectTitle> utils1 = new OkHttpUtils<>(instance);
+                String url1 = "http://101.251.196.90:8080/JztkServer/examInfo";
+                utils1.url(url1)
                         .targetClass(SubjectTitle.class)
                         .execute(new OkHttpUtils.OnCompleteListener<SubjectTitle>() {
                             @Override
                             public void onSuccess(SubjectTitle result) {
-                                Log.e("main","result"+result);
-                                mSubjectTitle =result ;
+                                Log.e("main", "result=" + result);
+                                mSubjectTitle = result;
                             }
 
                             @Override
                             public void onError(String error) {
-                                Log .e("main","error="+error);
+                                Log.e("main", "error=" + error);
                             }
                         });
+                OkHttpUtils<String> utils2 = new OkHttpUtils<>(instance);
+                String url2 = "http://101.251.196.90:8080/JztkServer/getQuestions?testType=rand";
+                utils2.url(url2)
+                        .targetClass(String.class)
+                        .execute(new OkHttpUtils.OnCompleteListener<String>() {
+                            @Override
+                            public void onSuccess(String jsonStr) {
+                                Result result = ResultUtils.getListResultFromJson(jsonStr);
+                                if (result != null && result.getError_code() == 0) {
+                                    List<Question> list = result.getResult();
+                                    if (list != null && list.size() > 0) {
+                                        mQuestionList = list;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onError(String error) {
+                                Log.e("main", "error=" + error);
+                            }
+                        });
+            }
+        }).start();
     }
 
 

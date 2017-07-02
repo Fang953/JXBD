@@ -33,12 +33,12 @@ public class ExamActivity extends AppCompatActivity{
 
     private void initView() {
         tvSubjectTitle= (TextView) findViewById(R.id.tv_subjecttitle);
-//        tvQuestionTitle= (TextView) findViewById(R.id.tv_question_title);
-//        tvOption1= (TextView) findViewById(R.id.tv_option1);
-//        tvOption2= (TextView) findViewById(R.id.tv_option2);
-//        tvOption3= (TextView) findViewById(R.id.tv_option3);
-//        tvOption4= (TextView) findViewById(R.id.tv_option4);
-//        jkImageView = (ImageView ) findViewById(R.id.im_exam_image) ;
+        tvQuestionTitle= (TextView) findViewById(R.id.tv_question_title);
+        tvOption1= (TextView) findViewById(R.id.tv_option1);
+        tvOption2= (TextView) findViewById(R.id.tv_option2);
+        tvOption3= (TextView) findViewById(R.id.tv_option3);
+        tvOption4= (TextView) findViewById(R.id.tv_option4);
+        jkImageView = (ImageView ) findViewById(R.id.im_exam_image) ;
     }
 
     private void initData() {
@@ -46,26 +46,26 @@ public class ExamActivity extends AppCompatActivity{
         if(subjectTitle!=null){
             showData(subjectTitle);
         }
-//        List<Question> questionList=ExamApplication .getInstance() .getQuestionList() ;
-//        if(questionList != null){
-//            showQuestion(questionList);
-//        }
+        List<Question> questionList=ExamApplication .getInstance().getQuestionList() ;
+        if(questionList != null){
+            showQuestion(questionList);
+        }
     }
 
-//    private void showQuestion(List<Question> questionList) {
-//        Question question = questionList.get(0);
-//        if(question != null){
-//            tvQuestionTitle .setText(question .getQuestion());
-//            tvOption1 .setText(question .getItem1());
-//            tvOption2 .setText(question .getItem2());
-//            tvOption3 .setText(question .getItem3());
-//            tvOption4 .setText(question .getItem4());
+    private void showQuestion(List<Question> questionList) {
+        Question question = questionList.get(0);
+        if(question != null){
+            tvQuestionTitle .setText(question .getQuestion());
+            tvOption1 .setText(question .getItem1());
+            tvOption2 .setText(question .getItem2());
+            tvOption3 .setText(question .getItem3());
+            tvOption4 .setText(question .getItem4());
 //            Picasso .with(ExamActivity.this)
 //                    .load(question .getUrl())
 //                    .into(jkImageView);
-//            ///jkImageView.set
-//        }
-//    }
+            ///jkImageView.set
+        }
+    }
 
     private void showData(SubjectTitle subjectTitle) {
         tvSubjectTitle .setText(subjectTitle.toString());
