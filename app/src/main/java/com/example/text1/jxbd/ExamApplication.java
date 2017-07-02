@@ -18,6 +18,9 @@ import java.util.List;
  */
 
 public class ExamApplication extends Application {
+    public static String LOAD_Subject_Title = "load_subject_title";
+    public static String LOAD_EXAM_QUESTION = "load_exam_question";
+    public static String LOAD_DATA_SUCCESS = "load_data_success";
     SubjectTitle mSubjectTitle;
     List<Question> mQuestionList;
     private static ExamApplication instance;  //申请私有的静态的实例化对象，去访问的是静态类
@@ -27,20 +30,9 @@ public class ExamApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance =this;
-        biz=new QuestionBiz();
-        initData();
     }
     public static ExamApplication getInstance(){
         return instance;
-    }
-
-    private void initData() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                biz.beginExam();
-            }
-        }).start();
     }
 
     public SubjectTitle getSubjectTitle() {
