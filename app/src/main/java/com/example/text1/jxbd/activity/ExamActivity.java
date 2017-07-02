@@ -60,10 +60,9 @@ public class ExamActivity extends AppCompatActivity{
             tvOption2 .setText(question .getItem2());
             tvOption3 .setText(question .getItem3());
             tvOption4 .setText(question .getItem4());
-//            Picasso .with(ExamActivity.this)
-//                    .load(question .getUrl())
-//                    .into(jkImageView);
-            ///jkImageView.set
+            Picasso .with(ExamActivity.this)
+                    .load(question .getUrl())
+                    .into(jkImageView);
         }
     }
 
