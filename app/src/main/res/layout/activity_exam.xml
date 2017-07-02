@@ -25,6 +25,7 @@
         android:textSize="24px"
         android:fontFamily="sans-serif">
         <TextView
+            android:id="@+id/tv_subjecttitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="@string/exam_title"
@@ -53,16 +54,18 @@
             android:textSize="18sp"
             />
         <TextView
+            android:id="@+id/tv_question_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="这个标志是何含义？"
+            tools:text="这个标志是何含义？"
             android:textColor="#000"
             android:textSize="18sp"/>
     </LinearLayout>
     <ImageView
+        android:id="@+id/im_exam_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/exam_img1"
+        tools:src="@mipmap/exam_img1"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="15dp"
         />
@@ -79,6 +82,7 @@
             android:textSize="18sp"
             />
         <TextView
+            android:id="@+id/tv_option1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="线形诱导标志"
@@ -98,6 +102,7 @@
             android:textSize="18sp"
             />
         <TextView
+            android:id="@+id/tv_option2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="合流诱导标志"
@@ -117,6 +122,7 @@
             android:textSize="18sp"
             />
         <TextView
+            android:id="@+id/tv_option3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="分流诱导标志"
@@ -136,6 +142,7 @@
             android:textSize="18sp"
             />
         <TextView
+            android:id="@+id/tv_option4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="转弯诱导标志"
