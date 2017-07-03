@@ -429,14 +429,14 @@ public class OkHttpUtils<T> {
 
     /**
      * 专门针对Result类的json解析方法，不具有通用性，属性定制、专用的方法
-     * @param result
+     * @param Result
      * @param clazz
      * @param <T>
      * @return
      */
-//    public <T> T parseJson(Result result, Class<?> clazz) {
-//        if (result.getRetCode() == 0) {
-//            String json = result.getRetData().toString();
+//    public <T> T parseJson(Result Result, Class<?> clazz) {
+//        if (Result.getRetCode() == 0) {
+//            String json = Result.getRetData().toString();
 //            T t = parseJson(json, clazz);
 //            return t;
 //        }

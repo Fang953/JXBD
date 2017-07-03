@@ -5,17 +5,16 @@ package com.example.text1.jxbd.bean;
  */
 
 public class Question {
-
     /**
-     * id : 13
+     * id : 2
      * question : 这个标志是何含义？
-     * answer : 4
-     * item1 : 十字交叉路口预告
-     * item2 : 互通立体交叉预告
-     * item3 : Y型交叉路口预告
-     * item4 : 环行交叉路口预告
-     * explains : 环形交叉口是在几条相交道路的平面交叉口中央设置一个半径较大的中心岛，使所有经过交叉口的直行和左转车辆都绕着中心岛作逆时针方向行驶，在其行驶过程中将车流的冲突点变 为交织点，从而保证交叉口的行车安全，提高交叉口的通行能力。
-     * url : http://images.juheapi.com/jztk/c1c2subject1/13.jpg
+     * answer : 1
+     * item1 : 线形诱导标志
+     * item2 : 合流诱导标志
+     * item3 : 分流诱导标志
+     * item4 : 转弯诱导标志
+     * explains : 线型诱导标线型诱导标志，用于引导车辆驾驶人改变行驶方向，促使安全运行。视需要设于易肇事之弯道路段，小半径匝道曲线或中央隔离设施及渠化设施的端部。线形诱导标的颜色规定为：指示性线形诱导标一般道路为蓝底白图案,高速公路为绿底白图案，用以提供一般性行驶指示;警告性线形诱导标为红底白图案，可使车辆驾驶人提高警觉，并准备防范应变之措施。
+     * url : http://images.juheapi.com/jztk/c1c2subject1/2.jpg
      */
 
     private int id;
@@ -27,6 +26,8 @@ public class Question {
     private String item4;
     private String explains;
     private String url;
+
+    private String userAnswer;
 
     public int getId() {
         return id;
@@ -98,5 +99,13 @@ public class Question {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getUserAnswer() {
+        return userAnswer;
+    }
+
+    public void setUserAnswer(String userAnswer) {
+        this.userAnswer = userAnswer;
     }
 }
