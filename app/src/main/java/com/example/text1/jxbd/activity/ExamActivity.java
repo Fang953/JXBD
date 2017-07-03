@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -30,8 +31,9 @@ import java.util.List;
  */
 
 public class ExamActivity extends AppCompatActivity{
+    TextView tvSubjectTitle,tvQuestionTitle,tvOption1,tvOption2,tvOption3,tvOption4,tvLoad,tvNo;
+    CheckBox cb01,cb02,cb03,cb04;
     LinearLayout layoutLoading;
-    TextView tvSubjectTitle,tvQuestionTitle,tvOption1,tvOption2,tvOption3,tvOption4,tvLoad;
     ImageView jkImageView;
     ProgressBar dialog;
     IExamBiz biz;
@@ -51,8 +53,8 @@ public class ExamActivity extends AppCompatActivity{
         mLoadExamBroadcast = new LoadExamBroadcast();
         mLoadQuestionBroadcast =new LoadQuestionBroadcast();
         setListener();
-        biz=new QuestionBiz();
         initView();
+        biz=new QuestionBiz();
         loadData();
     }
 
@@ -78,10 +80,15 @@ public class ExamActivity extends AppCompatActivity{
         dialog =(ProgressBar) findViewById(R.id.load_dialog);
         tvSubjectTitle= (TextView) findViewById(R.id.tv_subjecttitle);
         tvQuestionTitle= (TextView) findViewById(R.id.tv_question_title);
+        tvNo= (TextView) findViewById(R.id.tv_question_no);
         tvOption1= (TextView) findViewById(R.id.tv_option1);
         tvOption2= (TextView) findViewById(R.id.tv_option2);
         tvOption3= (TextView) findViewById(R.id.tv_option3);
         tvOption4= (TextView) findViewById(R.id.tv_option4);
+        cb01 = (CheckBox) findViewById(R.id.cb_01);
+        cb02 = (CheckBox) findViewById(R.id.cb_02);
+        cb03 = (CheckBox) findViewById(R.id.cb_03);
+        cb04 = (CheckBox) findViewById(R.id.cb_04);
         tvLoad = (TextView) findViewById(R.id.tv_load);
         jkImageView = (ImageView ) findViewById(R.id.im_exam_image) ;
         layoutLoading .setOnClickListener(new View.OnClickListener() {
@@ -100,28 +107,42 @@ public class ExamActivity extends AppCompatActivity{
                 if (subjectTitle != null) {
                     showData(subjectTitle);
                 }
-                List<Question> questionList = ExamApplication.getInstance().getQuestionList();
-                if (questionList != null) {
-                    showQuestion(questionList);
-                }
+                showQuestion(biz.getQuestion());
             }else{
-                dialog.setVisibility(View.GONE);
+                layoutLoading.setEnabled(true);
+                dialog.setVisibility(View.GONE);  //设置隐藏
                 tvLoad.setText("下载失败，点击重新下载");
             }
         }
     }
 
-    private void showQuestion(List<Question> questionList) {
-        Question question = questionList.get(0);
+    private void showQuestion(Question question){
+        Log.e("showQuestion","showQuestion,question="+question);
         if(question != null){
+            tvNo .setText(biz.getQuestionIndex());
             tvQuestionTitle .setText(question .getQuestion());
             tvOption1 .setText(question .getItem1());
             tvOption2 .setText(question .getItem2());
-            tvOption3 .setText(question .getItem3());
-            tvOption4 .setText(question .getItem4());
-            Picasso .with(ExamActivity.this)
-                    .load(question .getUrl())
-                    .into(jkImageView);
+            if(question.getItem3().equals("")){
+                tvOption3 .setVisibility(View.GONE);
+            }else{
+                tvOption3 .setVisibility(View.VISIBLE);
+                tvOption3 .setText(question .getItem3());
+            }
+            if(question.getItem4().equals("")){
+                tvOption4 .setVisibility(View.GONE);
+            }else{
+                tvOption4 .setVisibility(View.VISIBLE);
+                tvOption4 .setText(question .getItem4());
+            }
+            if(question.getUrl()!=null && !question.getUrl().equals("")) {
+                jkImageView .setVisibility(View.VISIBLE);
+                Picasso.with(ExamActivity.this)
+                        .load(question.getUrl())
+                        .into(jkImageView);
+            }else{
+                jkImageView .setVisibility(View.GONE);
+            }
         }
     }
 
@@ -138,6 +159,14 @@ public class ExamActivity extends AppCompatActivity{
         if (mLoadQuestionBroadcast!=null){
             unregisterReceiver(mLoadQuestionBroadcast);
         }
+    }
+
+    public void preQuestion(View view) {
+        showQuestion(biz.preQuestion());
+    }
+
+    public void nextQuestion(View view) {
+        showQuestion(biz.nextQuestion());
     }
 
     //广播一
