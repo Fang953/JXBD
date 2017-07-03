@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ViewPropertyAnimatorCompatSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -33,7 +34,7 @@ import java.util.List;
 public class ExamActivity extends AppCompatActivity{
     TextView tvSubjectTitle,tvQuestionTitle,tvOption1,tvOption2,tvOption3,tvOption4,tvLoad,tvNo;
     CheckBox cb01,cb02,cb03,cb04;
-    LinearLayout layoutLoading;
+    LinearLayout layoutLoading,layout03,layout04;
     ImageView jkImageView;
     ProgressBar dialog;
     IExamBiz biz;
@@ -77,6 +78,8 @@ public class ExamActivity extends AppCompatActivity{
 
     private void initView() {
         layoutLoading =(LinearLayout) findViewById(R.id.layout_loading);
+        layout03 =(LinearLayout) findViewById(R.id.layout_03);
+        layout04 =(LinearLayout) findViewById(R.id.layout_04);
         dialog =(ProgressBar) findViewById(R.id.load_dialog);
         tvSubjectTitle= (TextView) findViewById(R.id.tv_subjecttitle);
         tvQuestionTitle= (TextView) findViewById(R.id.tv_question_title);
@@ -123,18 +126,14 @@ public class ExamActivity extends AppCompatActivity{
             tvQuestionTitle .setText(question .getQuestion());
             tvOption1 .setText(question .getItem1());
             tvOption2 .setText(question .getItem2());
-            if(question.getItem3().equals("")){
-                tvOption3 .setVisibility(View.GONE);
-            }else{
-                tvOption3 .setVisibility(View.VISIBLE);
-                tvOption3 .setText(question .getItem3());
-            }
-            if(question.getItem4().equals("")){
-                tvOption4 .setVisibility(View.GONE);
-            }else{
-                tvOption4 .setVisibility(View.VISIBLE);
-                tvOption4 .setText(question .getItem4());
-            }
+            tvOption3 .setText(question .getItem3());
+            tvOption4 .setText(question .getItem4());
+
+            layout03.setVisibility(question.getItem3().equals("")? View.GONE:View.VISIBLE);
+            cb03.setVisibility(question.getItem3().equals("")?View .GONE :View .VISIBLE );
+            layout04.setVisibility(question.getItem4().equals("")? View.GONE:View.VISIBLE);
+            cb04.setVisibility(question.getItem4().equals("")?View .GONE :View .VISIBLE );
+
             if(question.getUrl()!=null && !question.getUrl().equals("")) {
                 jkImageView .setVisibility(View.VISIBLE);
                 Picasso.with(ExamActivity.this)
