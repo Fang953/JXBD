@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -25,6 +26,7 @@ import com.example.text1.jxbd.ExamApplication;
 import com.example.text1.jxbd.R;
 import com.example.text1.jxbd.bean.Question;
 import com.example.text1.jxbd.bean.SubjectTitle;
+import com.example.text1.jxbd.view.QuestionAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -42,7 +44,9 @@ public class ExamActivity extends AppCompatActivity{
     LinearLayout layoutLoading,layout03,layout04;
     ImageView jkImageView;
     ProgressBar dialog;
+    Gallery HLGallery;
     IExamBiz biz;
+    QuestionAdapter mAdapter;
     boolean isLoadExamInfo = false;
     boolean isLoadQuestions = false;
 
@@ -89,6 +93,7 @@ public class ExamActivity extends AppCompatActivity{
         tvSubjectTitle= (TextView) findViewById(R.id.tv_subjecttitle);
         tvQuestionTitle= (TextView) findViewById(R.id.tv_question_title);
         tvNo= (TextView) findViewById(R.id.tv_question_no);
+        HLGallery= (Gallery) findViewById(R.id.gallery);
         tvOption1= (TextView) findViewById(R.id.tv_option1);
         tvOption2= (TextView) findViewById(R.id.tv_option2);
         tvOption3= (TextView) findViewById(R.id.tv_option3);
@@ -155,6 +160,7 @@ public class ExamActivity extends AppCompatActivity{
                     showData(subjectTitle);
                     initTimer(subjectTitle);
                 }
+                initGallry();
                 showQuestion(biz.getQuestion());
             }else{
                 layoutLoading.setEnabled(true);
@@ -162,6 +168,11 @@ public class ExamActivity extends AppCompatActivity{
                 tvLoad.setText("下载失败，点击重新下载");
             }
         }
+    }
+
+    private void initGallry() {
+        mAdapter = new QuestionAdapter(this);
+        HLGallery.setAdapter(mAdapter);
     }
 
     //剩余时间的显示
