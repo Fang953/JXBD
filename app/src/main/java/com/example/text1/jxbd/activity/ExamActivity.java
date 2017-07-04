@@ -180,6 +180,11 @@ public class ExamActivity extends AppCompatActivity{
                 jkImageView .setVisibility(View.GONE);
             }
             resetOptions();
+            String userAnswer = question.getUserAnswer();
+            if(userAnswer!=null && !userAnswer.equals("")){
+                int userCB = Integer.parseInt(userAnswer)-1;
+                cbArray[userCB].setChecked(true);
+            }
         }
     }
 
@@ -222,10 +227,6 @@ public class ExamActivity extends AppCompatActivity{
     public void nextQuestion(View view) {
         saveUserAnswer();
         showQuestion(biz.nextQuestion());
-    }
-
-    public void commit(View view){
-
     }
 
     //广播一
