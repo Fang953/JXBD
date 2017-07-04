@@ -2,11 +2,13 @@ package com.example.text1.jxbd.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -219,14 +221,36 @@ public class ExamActivity extends AppCompatActivity{
         }
     }
 
+    //上一题
     public void preQuestion(View view) {
         saveUserAnswer();
         showQuestion(biz.preQuestion());
     }
 
+    //上一题
     public void nextQuestion(View view) {
         saveUserAnswer();
         showQuestion(biz.nextQuestion());
+    }
+
+    //返回显示考生成绩
+    public void commit(View view) {
+        saveUserAnswer();
+        int score = biz.commitExam();
+        View inflate = View.inflate(this, R.layout.layout_result, null);
+        TextView tvResult=(TextView) inflate.findViewById(R.id.tv_result);
+        tvResult.setText("您的分数为：\n" + score + "分！");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(R.mipmap.exam_commit32x32)
+                .setTitle("交卷")
+                .setView(inflate)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+        builder.create().show();
     }
 
     //广播一
