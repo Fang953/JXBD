@@ -28,13 +28,15 @@ import com.example.text1.jxbd.bean.SubjectTitle;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Administrator on 2017/6/29.
  */
 
 public class ExamActivity extends AppCompatActivity{
-    TextView tvSubjectTitle,tvQuestionTitle,tvOption1,tvOption2,tvOption3,tvOption4,tvLoad,tvNo;
+    TextView tvSubjectTitle,tvQuestionTitle,tvOption1,tvOption2,tvOption3,tvOption4,tvLoad,tvNo,tvTime;
     CheckBox cb01,cb02,cb03,cb04;
     CheckBox[] cbArray=new CheckBox[4];
     LinearLayout layoutLoading,layout03,layout04;
@@ -91,6 +93,7 @@ public class ExamActivity extends AppCompatActivity{
         tvOption2= (TextView) findViewById(R.id.tv_option2);
         tvOption3= (TextView) findViewById(R.id.tv_option3);
         tvOption4= (TextView) findViewById(R.id.tv_option4);
+        tvTime= (TextView) findViewById(R.id.tv_time);
         cb01 = (CheckBox) findViewById(R.id.cb_01);
         cb02 = (CheckBox) findViewById(R.id.cb_02);
         cb03 = (CheckBox) findViewById(R.id.cb_03);
@@ -150,6 +153,7 @@ public class ExamActivity extends AppCompatActivity{
                 SubjectTitle subjectTitle = ExamApplication.getInstance().getSubjectTitle();
                 if (subjectTitle != null) {
                     showData(subjectTitle);
+                    initTimer(subjectTitle);
                 }
                 showQuestion(biz.getQuestion());
             }else{
@@ -158,6 +162,43 @@ public class ExamActivity extends AppCompatActivity{
                 tvLoad.setText("下载失败，点击重新下载");
             }
         }
+    }
+
+    //剩余时间的显示
+    private void initTimer(SubjectTitle subjectTitle) {
+        int sumTime = subjectTitle.getLimitTime() * 60 * 1000;
+        //Log.e("time","sumTime="+sumTime);
+        final long overTime = sumTime + System.currentTimeMillis();
+        //Log.e("time","overTime="+overTime);
+        final Timer timer=new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                long Res=overTime - System.currentTimeMillis();  //剩余时长=结束时间-当前时间
+                //Log.e("time","Res="+Res);
+                final long min = Res/1000/60;              //剩余时长的分钟
+                final long second = Res/1000%60;           //剩余时长的秒钟
+                //Log.e("time","min="+min+",second"+second);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvTime.setText("剩余时间："+ min +"分" + second +"秒");
+                    }
+                });
+            }
+        },0,1000);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                timer.cancel();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        commit(null);
+                    }
+                });
+            }
+        },sumTime);
     }
 
     private void showQuestion(Question question){

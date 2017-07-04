@@ -60,6 +60,14 @@
             android:background="#990000"
             android:layout_margin="5dp"
             />
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="剩余时间：9分53秒"
+            android:gravity="center_horizontal"
+            android:textColor="#000"/>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,6 +75,7 @@
         android:orientation="horizontal"
         android:layout_margin="15dp">
         <TextView
+            android:id="@+id/tv_question_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1."
@@ -130,6 +139,7 @@
             android:textSize="18sp"/>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/layout_03"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -150,6 +160,7 @@
             android:textSize="18sp"/>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/layout_04"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -175,21 +186,25 @@
         android:orientation="horizontal"
         android:layout_margin="10dp">
         <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="A"
+            android:id="@+id/cb_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A"
             android:layout_marginLeft="20dp" />
         <CheckBox
+            android:id="@+id/cb_02"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="B"
             android:layout_marginLeft="20dp" />
         <CheckBox
+            android:id="@+id/cb_03"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="C"
             android:layout_marginLeft="20dp"/>
         <CheckBox
+            android:id="@+id/cb_04"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="D"
@@ -204,7 +219,8 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@mipmap/exam_pre32x32"
             android:background="@null"
-            android:text="下一题"
+            android:text="上一题"
+            android:onClick="preQuestion"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="25dp" />
         <Button
@@ -213,7 +229,8 @@
             android:layout_height="wrap_content"
             android:drawableRight="@mipmap/exam_next32x32"
             android:background="@null"
-            android:text="上一题"
+            android:text="下一题"
+            android:onClick="nextQuestion"
             android:layout_alignParentRight="true"
             android:layout_marginRight="25dp" />
         <Button
@@ -223,6 +240,7 @@
             android:drawableRight="@mipmap/exam_commit32x32"
             android:background="@null"
             android:text="交卷"
+            android:onClick="commit"
             android:layout_alignParentRight="true"
             android:layout_marginRight="25dp" />
     </RelativeLayout>
