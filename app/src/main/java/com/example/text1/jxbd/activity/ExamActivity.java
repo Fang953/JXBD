@@ -183,12 +183,22 @@ public class ExamActivity extends AppCompatActivity{
         }
     }
 
+    //清空选择
     private void resetOptions() {
         for(CheckBox cb : cbArray){
             cb.setChecked(false);
         }
     }
 
+    //保存正确答案
+    private void saveUserAnswer(){
+        for(int i = 0;i < cbArray.length;i++){
+            if(cbArray [i].isChecked()){
+                biz.getQuestion().setUserAnswer(String.valueOf(i+1));
+                return;
+            }
+        }
+    }
     private void showData(SubjectTitle subjectTitle) {
         tvSubjectTitle .setText(subjectTitle.toString());
     }
@@ -205,10 +215,12 @@ public class ExamActivity extends AppCompatActivity{
     }
 
     public void preQuestion(View view) {
+        saveUserAnswer();
         showQuestion(biz.preQuestion());
     }
 
     public void nextQuestion(View view) {
+        saveUserAnswer();
         showQuestion(biz.nextQuestion());
     }
 
