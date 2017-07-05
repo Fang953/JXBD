@@ -9,8 +9,9 @@ import com.example.text1.jxbd.bean.Question;
 public interface IExamBiz {
     void beginExam();
     Question getQuestion();
+
     Question nextQuestion();
     Question preQuestion();
-    void commitExam();
+    int commitExam();
     String getQuestionIndex();
 }

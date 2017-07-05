@@ -57,8 +57,17 @@ public class QuestionBiz implements IExamBiz{
     }
 
     @Override
-    public void commitExam() {
-
+    public int commitExam() {
+        int score=0;
+        for (Question exam : questionList) {
+            String userAnswer = exam.getUserAnswer();
+            if (userAnswer!=null && !userAnswer.equals("")){
+                if (exam.getAnswer().equals(userAnswer)){
+                    score++;
+                }
+            }
+        }
+        return score;
     }
 
     @Override
