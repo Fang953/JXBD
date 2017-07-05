@@ -9,7 +9,7 @@ import com.example.text1.jxbd.bean.Question;
 public interface IExamBiz {
     void beginExam();
     Question getQuestion();
-
+    Question getQuestion(int index);
     Question nextQuestion();
     Question preQuestion();
     int commitExam();

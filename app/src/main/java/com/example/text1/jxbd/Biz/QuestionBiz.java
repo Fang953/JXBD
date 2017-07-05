@@ -37,6 +37,17 @@ public class QuestionBiz implements IExamBiz{
     }
 
     @Override
+    public Question getQuestion(int index) {
+        questionList = ExamApplication.getInstance().getQuestionList();
+        questionIndex = index;
+        if(questionList!=null) {
+            return questionList.get(questionIndex);
+        }else {
+            return null;
+        }
+    }
+
+    @Override
     public Question nextQuestion() {
         if(questionList!=null && questionIndex < questionList .size() -1) {
             questionIndex++;

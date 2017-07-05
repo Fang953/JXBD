@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Gallery;
@@ -173,6 +174,14 @@ public class ExamActivity extends AppCompatActivity{
     private void initGallry() {
         mAdapter = new QuestionAdapter(this);
         HLGallery.setAdapter(mAdapter);
+        HLGallery .setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("gallery","gallery item position="+position);
+                saveUserAnswer();
+                showQuestion(biz.getQuestion(position));
+            }
+        });
     }
 
     //剩余时间的显示
