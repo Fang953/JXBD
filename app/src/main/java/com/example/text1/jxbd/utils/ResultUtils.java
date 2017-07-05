@@ -5,16 +5,13 @@ import android.util.Log;
 import com.example.text1.jxbd.bean.Question;
 import com.example.text1.jxbd.bean.Result;
 import com.google.gson.Gson;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Administrator on 2017/6/30.
- */
+
 
 public class ResultUtils {
     static String UTF_8 = "utf-8";
@@ -31,16 +28,17 @@ public class ResultUtils {
             }
             if(!jsonObject.isNull("reason")) {
                 result.setReason(jsonObject.getString("reason"));
-            }else if(!jsonObject.isNull("Result")){
-                result.setReason(jsonObject.getString("Result"));
+            }else if(!jsonObject.isNull("result")){
+                result.setReason(jsonObject.getString("result"));
             }
-            if(!jsonObject.isNull("Result")) {
-                JSONArray array = jsonObject.getJSONArray("Result");
+            if(!jsonObject.isNull("result")) {
+                JSONArray array = jsonObject.getJSONArray("result");
                 if (array != null) {
                     List<Question> list = new ArrayList<Question>();
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject jsonGroupAvatar = array.getJSONObject(i);
-                        Question ga = new Gson().fromJson(jsonGroupAvatar.toString(), Question.class);
+                        Question ga = new Gson().fromJson(jsonGroupAvatar.toString(),
+                                Question.class);
                         list.add(ga);
                     }
                     result.setResult(list);
@@ -52,7 +50,8 @@ public class ResultUtils {
                     List<Question> list = new ArrayList<Question>();
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject jsonGroupAvatar = array.getJSONObject(i);
-                        Question ga = new Gson().fromJson(jsonGroupAvatar.toString(), Question.class);
+                        Question ga = new Gson().fromJson(jsonGroupAvatar.toString(),
+                                Question.class);
                         list.add(ga);
                     }
                     result.setResult(list);
@@ -65,5 +64,5 @@ public class ResultUtils {
         }
         return  null;
     }
-}
 
+}

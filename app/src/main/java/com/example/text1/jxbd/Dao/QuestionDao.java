@@ -52,15 +52,20 @@ public class QuestionDao implements IExamDao {
                 .execute(new OkHttpUtils.OnCompleteListener<String>() {
                     @Override
                     public void onSuccess(String jsonStr) {
+                        Log.e("main", "loadQuestionLists,jsonStr=" + jsonStr);
                         boolean success = false;
                         Result result = ResultUtils.getListResultFromJson(jsonStr);
+                        Log.e("main", "loadQuestionLists,result=" + result);
                         if (result != null && result.getError_code() == 0) {
                             List<Question> list = result.getResult();
+                            Log.e("main", "loadQuestionLists,list=" + list);
                             if (list != null && list.size() > 0) {
+                                Log.e("main", "loadQuestionLists,list.size()=" + list.size());
                                 ExamApplication.getInstance().setQuestionList(list);
                                 success = true;
                             }
                         }
+                        Log.e("main", "loadQuestionLists,success=" + success);
                         ExamApplication.getInstance()
                                 .sendBroadcast(new Intent(ExamApplication.LOAD_EXAM_QUESTION)
                                 .putExtra(ExamApplication.LOAD_DATA_SUCCESS,success));
