@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this ,ExamActivity .class));
     }
 
-    public void exit(View view) {
+    public void test3(View view) {
         finish();
     }
 }

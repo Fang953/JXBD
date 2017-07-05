@@ -29,6 +29,7 @@ public class SplashActivity extends AppCompatActivity{
         public void onFinish() {
             Intent intent = new Intent(SplashActivity.this,MainActivity.class);
             startActivity(intent);
+            finish();
         }
     };
 }
