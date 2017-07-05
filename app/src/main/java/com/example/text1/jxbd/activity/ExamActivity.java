@@ -263,9 +263,12 @@ public class ExamActivity extends AppCompatActivity{
         for(int i = 0;i < cbArray.length;i++){
             if(cbArray [i].isChecked()){
                 biz.getQuestion().setUserAnswer(String.valueOf(i+1));
+                mAdapter.notifyDataSetChanged();
                 return;
             }
         }
+        biz.getQuestion().setUserAnswer("");
+        mAdapter.notifyDataSetChanged();
     }
     private void showData(SubjectTitle subjectTitle) {
         tvSubjectTitle .setText(subjectTitle.toString());
