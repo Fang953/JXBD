@@ -214,18 +214,14 @@ public class ExamActivity extends AppCompatActivity {
     //剩余时间的显示
     private void initTimer(SubjectTitle subjectTitle) {
         int sumTime = subjectTitle.getLimitTime() * 60 * 1000;
-        //Log.e("time","sumTime="+sumTime);
         final long overTime = sumTime + System.currentTimeMillis();
-        //Log.e("time","overTime="+overTime);
         final Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 long Res = overTime - System.currentTimeMillis();  //剩余时长=结束时间-当前时间
-                //Log.e("time","Res="+Res);
                 final long min = Res / 1000 / 60;              //剩余时长的分钟
                 final long second = Res / 1000 % 60;           //剩余时长的秒钟
-                //Log.e("time","min="+min+",second"+second);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -270,6 +266,7 @@ public class ExamActivity extends AppCompatActivity {
                 jkImageView.setVisibility(View.GONE);
             }
             resetOptions();
+            setOptionsColor();
             String userAnswer = question.getUserAnswer();
             if (userAnswer != null && !userAnswer.equals("")) {
                 int userCB = Integer.parseInt(userAnswer) - 1;
