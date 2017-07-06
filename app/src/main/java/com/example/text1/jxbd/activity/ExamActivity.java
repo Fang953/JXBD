@@ -363,8 +363,21 @@ public class ExamActivity extends AppCompatActivity {
         showQuestion(biz.nextQuestion());
     }
 
-    //返回显示考生成绩
     public void commit(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("交卷")
+                .setMessage("您还有剩余时间，确定交卷吗？")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        commit();
+                    }
+                }).setNegativeButton("取消",null);
+        builder.create().show();
+    }
+
+    //返回显示考生成绩
+    public void commit() {
         saveUserAnswer();
         int score = biz.commitExam();
         View inflate = View.inflate(this, R.layout.layout_result, null);
@@ -380,6 +393,7 @@ public class ExamActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+        builder.setCancelable(false);
         builder.create().show();
     }
 
