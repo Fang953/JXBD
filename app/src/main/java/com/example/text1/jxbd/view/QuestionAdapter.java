@@ -53,9 +53,9 @@ public class QuestionAdapter extends BaseAdapter {
         Log.e("adapter","questionList.get(position)="+questionList.get(position));
         if(ua!=null && !ua.equals("")){
             ivQuestion.setImageResource(ua.equals(ra)
-                    ?R.mipmap.answer24x24:R.mipmap.Error);
+                    ?R.mipmap.answer24x24:R.mipmap.error);
         }else{
-            ivQuestion.setImageResource(R.mipmap.unQuestion);
+            ivQuestion.setImageResource(R.mipmap.unquestion);
         }
         tvNum.setText("第"+(position+1)+"题");
         return view;
