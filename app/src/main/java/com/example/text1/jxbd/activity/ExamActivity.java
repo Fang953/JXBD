@@ -43,6 +43,7 @@ import butterknife.OnClick;
 
 public class ExamActivity extends AppCompatActivity {
     CheckBox[] cbArray = new CheckBox[4];
+    TextView[] tvArray = new TextView[4];
     IExamBiz biz;
     QuestionAdapter mAdapter;
     boolean isLoadExamInfo = false;
@@ -126,6 +127,10 @@ public class ExamActivity extends AppCompatActivity {
         cbArray[1] = cb02;
         cbArray[2] = cb03;
         cbArray[3] = cb04;
+        tvArray[0] = tvOption1;
+        tvArray[1] = tvOption2;
+        tvArray[2] = tvOption3;
+        tvArray[3] = tvOption4;
 //        tvLoad = (TextView) findViewById(R.id.tv_load);
 //        jkImageView = (ImageView) findViewById(R.id.im_exam_image);
 //        layoutLoading.setOnClickListener(new View.OnClickListener() {
@@ -270,8 +275,36 @@ public class ExamActivity extends AppCompatActivity {
                 int userCB = Integer.parseInt(userAnswer) - 1;
                 cbArray[userCB].setChecked(true);
                 setOptions(true);
+                setAnswerTextColor(userAnswer,question.getAnswer());
             } else {
                 setOptions(false);
+                setOptionsColor();
+            }
+        }
+    }
+
+    private void setOptionsColor() {
+        for (TextView tvArrays : tvArray) {
+            tvArrays.setTextColor(getResources().getColor(R.color.black));
+        }
+    }
+
+    //答题后，点击下一题在返回前一题查看
+    // 答案错误选项显示红色，正确答案显示绿色，无关紧要答案显示黑色
+    private void setAnswerTextColor(String userAnswer, String answer) {
+        int ra = Integer.parseInt(answer)-1;
+        for (int i = 0; i < tvArray.length; i++){
+            if (i==ra){
+                tvArray[i].setTextColor(getResources().getColor(R.color.green));
+            }else{
+                if (!userAnswer.equals(answer)) {
+                    int ua = Integer.parseInt(userAnswer) - 1;
+                    if (i == ua) {
+                        tvArray[i].setTextColor(getResources().getColor(R.color.red));
+                    } else {
+                        tvArray[i].setTextColor(getResources().getColor(R.color.black));
+                    }
+                }
             }
         }
     }
