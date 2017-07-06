@@ -221,35 +221,45 @@ public class ExamActivity extends AppCompatActivity{
         },sumTime);
     }
 
-    private void showQuestion(Question question){
-        Log.e("showQuestion","showQuestion,question="+question);
-        if(question != null){
-            tvNo .setText(biz.getQuestionIndex());
-            tvQuestionTitle .setText(question .getQuestion());
-            tvOption1 .setText(question .getItem1());
-            tvOption2 .setText(question .getItem2());
-            tvOption3 .setText(question .getItem3());
-            tvOption4 .setText(question .getItem4());
-            layout03.setVisibility(question.getItem3().equals("")? View.GONE:View.VISIBLE);
-            cb03.setVisibility(question.getItem3().equals("")?View .GONE :View .VISIBLE );
-            layout04.setVisibility(question.getItem4().equals("")? View.GONE:View.VISIBLE);
-            cb04.setVisibility(question.getItem4().equals("")?View .GONE :View .VISIBLE );
-            if(question.getUrl()!=null && !question.getUrl().equals("")) {
-                jkImageView .setVisibility(View.VISIBLE);
+    private void showQuestion(Question question) {
+        Log.e("showQuestion", "showQuestion,question=" + question);
+        if (question != null) {
+            tvNo.setText(biz.getQuestionIndex());
+            tvQuestionTitle.setText(question.getQuestion());
+            tvOption1.setText(question.getItem1());
+            tvOption2.setText(question.getItem2());
+            tvOption3.setText(question.getItem3());
+            tvOption4.setText(question.getItem4());
+            layout03.setVisibility(question.getItem3().equals("") ? View.GONE : View.VISIBLE);
+            cb03.setVisibility(question.getItem3().equals("") ? View.GONE : View.VISIBLE);
+            layout04.setVisibility(question.getItem4().equals("") ? View.GONE : View.VISIBLE);
+            cb04.setVisibility(question.getItem4().equals("") ? View.GONE : View.VISIBLE);
+            if (question.getUrl() != null && !question.getUrl().equals("")) {
+                jkImageView.setVisibility(View.VISIBLE);
                 Picasso.with(ExamActivity.this)
                         .load(question.getUrl())
                         .into(jkImageView);
-            }else{
-                jkImageView .setVisibility(View.GONE);
+            } else {
+                jkImageView.setVisibility(View.GONE);
             }
             resetOptions();
             String userAnswer = question.getUserAnswer();
-            if(userAnswer!=null && !userAnswer.equals("")){
-                int userCB = Integer.parseInt(userAnswer)-1;
+            if (userAnswer != null && !userAnswer.equals("")) {
+                int userCB = Integer.parseInt(userAnswer) - 1;
                 cbArray[userCB].setChecked(true);
+                setOptions(true);
+            }else{
+                setOptions(false);
             }
         }
     }
+
+    private void setOptions(boolean hasAnswer){
+        for (CheckBox cb : cbArray) {
+            cb.setEnabled(!hasAnswer);
+        }
+    }
+
 
     //清空选择
     private void resetOptions() {
